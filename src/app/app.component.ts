@@ -1,12 +1,37 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'users_list';
+	users: string[] = ["artur", "andrei", "sasha"];
+	filteredUsers: string[] = [];
+	isSearching: boolean = false;
+	addUser() {
+		const name = (<HTMLInputElement>document.getElementById("input")).value;
+		this.users.push(name);
+	}
+
+	deleteUser(index: number) {
+		this.users.splice(index, 1);
+	}
+
+	searchUser() {
+		const searchInput = (<HTMLInputElement>document.getElementById("search")).value.toLowerCase();
+		const list = document.getElementById("list");
+
+		if (searchInput == "") {
+			this.isSearching = false;
+			this.filteredUsers = [];
+			if (list?.innerHTML) {
+				list.innerHTML = "";
+			}
+		} else {
+			this.isSearching = true;
+			this.filteredUsers = this.users.filter(name => name.includes(searchInput));
+		}
+		console.log(this.isSearching)
+	}
 }
