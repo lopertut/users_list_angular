@@ -1,0 +1,18 @@
+<main class="main">
+	<input id="search" (input)="searchUser()" placeholder="find user">
+	<ul id="list">
+		@if (!isSearching) {
+		@for (user of users; track user) {
+		<li>{{user}}</li>
+		<button (click)="deleteUser(users.indexOf(user))">delete</button>
+		}
+		} @else {
+		@for (user of filteredUsers; track user) {
+		<li>{{user}}</li>
+		<button (click)="deleteUser(users.indexOf(user))">delete</button>
+		}
+		}
+	</ul>
+	<input id="input" placeholder="enter name">
+	<button (click)="addUser()">Add user</button>
+</main>
